@@ -88,7 +88,6 @@ Then /^I should see only movies rated: "(.*?)"$/ do |arg1|
 end
 
 Then /^I should see all of the movies$/ do
-    
     if all('tr').count-1 == Movie.count
      result = true
     else
@@ -97,5 +96,41 @@ Then /^I should see all of the movies$/ do
     expect(result).to be_truthy 
 end
 
+When /^I have sorted alphabetically$/ do
+    click_on 'Movie Title'
+end
+  
+Then /^I should see Aladdin before Amelie$/ do
+  count = 0
+  aladdin = 0
+  amelie = 0
+  all('//tbody/tr/td[1]').each do |rating|
+    if rating.text == "Aladdin"
+     aladdin = count
+    elsif rating.text == "Amelie"
+     amelie = count
+    end
+    count = count + 1 
+  end
+  expect(amelie > aladdin).to be_truthy
+end
 
+When /^I have sorted by release date in increasing order$/ do
+    click_on 'Release Date'
+end
+
+Then /^I should see A Space Odyssey before Raiders of the Lost Ark$/ do
+  count = 0
+  space = 0
+  raiders = 0
+  all('//tbody/tr/td[1]').each do |rating|
+    if rating.text == "Raiders of the Lost Ark"
+     raiders = count
+    elsif rating.text == "A Space Odyssey"
+     space = count
+    end
+    count = count + 1 
+  end
+  expect(space < raiders).to be_truthy
+end
 

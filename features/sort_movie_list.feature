@@ -22,8 +22,10 @@ Background: movies have been added to database
   And I am on the RottenPotatoes home page
 
 Scenario: sort movies alphabetically
-  # your scenario here
+  When I have sorted alphabetically
+  Then I should see Aladdin before Amelie
 
 Scenario: sort movies in increasing order of release date
-  # your scenario here
+  When I have sorted by release date in increasing order
+  Then I should see A Space Odyssey before Raiders of the Lost Ark
 
