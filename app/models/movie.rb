@@ -14,4 +14,8 @@ class Movie < ActiveRecord::Base
     end
     return array_of_hash
   end
+  
+  def self.create_from_tmdb(movies_to_add)
+    
+  end
 end
