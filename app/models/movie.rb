@@ -15,7 +15,8 @@ class Movie < ActiveRecord::Base
     return array_of_hash
   end
   
-  def self.create_from_tmdb(movies_to_add)
-    
+  def self.create_from_tmdb(movie_id)
+    movieAdding = Tmdb::Movie.detail(movie_id)
+    self.create!(movieAdding.title, movieAdding.title, movieAdding.release_date)
   end
 end

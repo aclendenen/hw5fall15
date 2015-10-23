@@ -69,5 +69,16 @@ class MoviesController < ApplicationController
       @searchTerm = params[:search_terms]
     end
   end
+  
+  def add_tmdb
+    if(params[:tmdb_movies] == nil)
+
+    else
+      idArray = params[:tmdb_movies].keys
+      idArray.each do |id|
+        Movie.create_from_tmdb(id)
+      end
+    end
+  end
 
 end
