@@ -9,7 +9,7 @@ class Movie < ActiveRecord::Base
     var array_of_hash = []
     if(!matching_movies.empty?)
       matching_movies.each do |movie|
-        array_of_hash.push({:tmdb_id => movie.id,:title => movie.title,:rating => movie.vote_average,:release_date => movie.release_date})
+        array_of_hash.push({:tmdb_id => movie.id,:title => movie.title,:rating => 'R',:release_date => movie.release_date})
       end
     end
     return array_of_hash

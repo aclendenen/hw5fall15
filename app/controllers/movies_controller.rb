@@ -65,8 +65,8 @@ class MoviesController < ApplicationController
     if(params[:search_terms] == nil)
       
     else
-      @searchMovies = Movie.find_in_tmdb(params[:search_terms])
-      @searchTerm = params[:search_terms]
+      @searchMovies = Movie.find_in_tmdb(params[:search_term])
+      @searchTerm = params[:search_term]
     end
   end
   
