@@ -28,6 +28,6 @@
 = form_tag movies_search_tmdb_path, :method => :post do
   = label :search_term, 'Search for movie titles containing:'
   = search_field_tag :search_term
-  = submit_tag 'Search TMBD' 
+  = submit_tag 'Search TMDB' 
 
 = link_to 'Add new movie', new_movie_path

@@ -134,3 +134,92 @@ Then /^I should see A Space Odyssey before Raiders of the Lost Ark$/ do
   expect(space < raiders).to be_truthy
 end
 
+When /^I have searched tmdb with the search terms "(.*?)"$/ do |searchTerm|
+    visit movies_path
+    fill_in(:search_term, :with => searchTerm)
+    click_button 'Search TMDB'
+end
+
+Then /^I should see "(.*?)" items related to "(.*?)"$/ do |amount, searchTerm| 
+    total = amount.to_i
+    if all('tr').count - 1 == total
+     result = true
+    else
+     result = false
+    end
+    expect(result).to be_truthy 
+end
+
+Then /^I should be transfered to search results page$/ do
+    if(page.current_path == movies_search_tmdb_path)
+        result = true
+    else
+        result = false
+    end
+    expect(result).to be_truthy 
+end
+ 
+When /^I have searched tmdb without entering anything for a term$/ do
+    click_button 'Search TMDB'
+end
+
+Then /^I should see a message saying "(.*?)"$/ do |message| 
+    expect(page).to have_content(message)
+end
+
+Then /^I should be still on the home page$/ do
+    if(current_path == movies_path)
+        result = true
+    else
+        result = true
+    end
+    expect(result).to be_truthy
+end
+
+Given /^"(.*?)" has been searched for$/ do |searchTerm|
+    @totMovBefore = Movie.count
+    visit movies_path
+    fill_in(:search_term, :with => searchTerm)
+    click_button 'Search TMDB'
+end
+
+When /^I have checked "(.*?)" movies$/ do |amount|
+    count = 0
+    total = amount.to_i
+    all('input[type=checkbox]').each do |checkbox|
+        if(count < total)
+            checkbox.set(true)
+        end
+        count += 1
+    end
+      
+end
+
+When /^I have clicked add selected$/ do
+    click_button 'Add Selected Movies'
+end
+
+Then /^I should be transfered to the home page$/ do
+    if(current_path == movies_path)
+        result = true
+    else
+        result = true
+    end
+    expect(result).to be_truthy
+end
+
+Then /^I should see "(.*?)" new movies have been added$/ do |amount|
+    addAmt = amount.to_i
+    if(@totMovBefore == nil)
+        @totMovBefore
+    end
+    if(Movie.count == @totMovBefore + addAmt)
+        result = true
+    else
+        result = false
+    end
+    expect(result).to be_truthy
+end
+
+
+
